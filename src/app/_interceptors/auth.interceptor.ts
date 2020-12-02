@@ -20,6 +20,8 @@ export class AuthInterceptor implements HttpInterceptor {
   }
   handleError(error: any) {
 
+    console.log(error);
+
     if (error.status == 401 || error.status == 403) {
       this.authenticationService.logOut()
       this.modal.dismissAll() //cerrar todos los modales  

@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { UrlAuthGuard } from "../_guards/url-auth.guard";
 
 export const DashboardRoutes: Routes = [
   {
@@ -9,6 +10,7 @@ export const DashboardRoutes: Routes = [
       {
         path: '',
         component: DashboardComponent,
+        canActivate: [UrlAuthGuard],
         data: {
           title: 'Tablero principal',
           urls: [

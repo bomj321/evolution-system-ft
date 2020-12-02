@@ -1,5 +1,9 @@
-import { Component, AfterViewInit } from '@angular/core';
-import { NgbProgressbarConfig } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from "../../services/authentication.service";
+import { GeneralFunctionsService } from '../../services/general-functions.service'
+import { TaskService } from "../../services/task.service";
+import swal from 'sweetalert2';
+
 
 declare var require: any;
 
@@ -7,103 +11,88 @@ const data: any = require('./data.json');
 
 @Component({
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
+  providers: [
+    TaskService
+  ]
 })
-export class DashboardComponent implements AfterViewInit {
-  subtitle: string;
-  constructor() {
-    this.subtitle = 'This is some text within a card block.';
+export class DashboardComponent implements OnInit {
+
+
+
+  public searchParams: any;
+  public loading: boolean = false;
+  public pageSize: number = 10;
+  public page: number = 1;
+  public currentUser:any;
+  public tasks:any;
+
+  constructor(
+    private authenticationService: AuthenticationService,
+    public generalFunctionsService: GeneralFunctionsService,
+    private taskService: TaskService) { }
+
+  ngOnInit() {
+
+    this.currentUser = this.authenticationService.getCurrentUser();
+    this.getTasks();
   }
-  // This is for the dashboar line chart
-  // lineChart
-  public lineChartData: Array<any> = [
-    { data: [0, 50, 30, 60, 180, 120, 180, 80], label: 'Sales ' },
-    { data: [0, 100, 70, 100, 240, 180, 220, 140], label: 'Expense ' },
-    { data: [0, 150, 110, 240, 200, 200, 300, 200], label: 'Earning ' }
-  ];
 
-  public lineChartLabels: Array<any> = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'Aug'
-  ];
-  public lineChartOptions: any = {
-    scales: {
-      yAxes: [
-        {
-          ticks: {
-            beginAtZero: true
-          },
-          gridLines: {
-            color: 'rgba(0, 0, 0, 0.1)'
-          }
-        }
-      ],
-      xAxes: [
-        {
-          gridLines: {
-            color: 'rgba(0, 0, 0, 0.1)'
-          }
-        }
-      ]
+/********************CRUD****************************** */
+
+  getTasks(page = 1, searchParams = false) {
+    this.loading = true;
+    this.page = page  
+
+    this.taskService.getTasks(this.currentUser._id,page, searchParams).subscribe((tasks: any) => {
+      this.tasks = tasks;
+      this.loading = false;
     },
-    lineTension: 10,
-    responsive: true,
-    maintainAspectRatio: false
-  };
-  public lineChartColors: Array<any> = [
-    {
-      // dark grey
-      backgroundColor: 'rgba(234,237,242,1)',
-      borderColor: 'rgba(234,237,242,1)',
-      pointBackgroundColor: 'rgba(234,237,242,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(234,237,242,1)'
-    },
-    {
-      // grey
-      backgroundColor: 'rgba(76,139,236,1)',
-      borderColor: 'rgba(76,139,236,1)',
-      pointBackgroundColor: 'rgba(76,139,236,1)',
-      pointBorderColor: '#fff',
+      error => {
+        this.loading = false;
+        this.generalFunctionsService.notifications('Ha ocurrido un error al obtener las tareas, por favor contacte con el administrador', 'error');
+      })
+  }
 
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(76,139,236,1)'
-    },
-    {
-      // grey
-      backgroundColor: 'rgba(117,91,241,1)',
-      borderColor: 'rgba(117,91,241,1)',
-      pointBackgroundColor: 'rgba(117,91,241,1)',
-      pointBorderColor: '#fff',
 
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(117,91,241,1)'
-    }
-  ];
-  public lineChartLegend = false;
-  public lineChartType = 'line';
+  deletePromoFunction(id) {
+    
+    this.taskService.deleteTask(id).subscribe(
+      data => {
+        this.getTasks(this.page);
+        this.generalFunctionsService.notifications('Promoción eliminada con éxito', 'success');
+      },
+      error => {
 
-  // Doughnut
-  public doughnutChartLabels: string[] = [
-    'Tablet',
-    'Desktop',
-    'Mobile',
-    'Other'
-  ];
-  public doughnutChartOptions: any = {
-    borderWidth: 2,
-    maintainAspectRatio: false
-  };
-  public doughnutChartData: number[] = [150, 450, 200, 20];
-  public doughnutChartType = 'doughnut';
-  public doughnutChartLegend = false;
+          this.generalFunctionsService.notifications('Ha ocurrido un error al eliminar la tarea, por favor contacte con el administrador', 'error');
+        
 
-  ngAfterViewInit() {}
+      }
+    );
+  }
+
+
+
+  deleteTask(id) {
+   
+    swal({
+      title: 'Estás seguro?',
+      text: "¿Estás seguro de eliminar?",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'No, cancelar',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+
+        this.deletePromoFunction(id);
+
+      } else if (
+        result.dismiss === swal.DismissReason.cancel
+      ) {
+      }
+    })
+  }
+
 }

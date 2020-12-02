@@ -20,7 +20,7 @@ export class UrlAuthGuard implements CanActivate
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean 
     {
-      if(this.authService.isAuthenticated())
+      if(this.authService.isAuthenticated() && this.authService.isCurrentUser())
       {
         return true;
       }else

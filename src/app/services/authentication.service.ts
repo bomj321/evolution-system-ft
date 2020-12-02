@@ -37,6 +37,7 @@ export class AuthenticationService {
 
   private context = "evolution"; // Variable to determine what system it is
   private localData = {
+    currentUser: 'currentUser' + this.context,
     access_token: "access_token" + this.context,
     email: "email" + this.context,
     password: "password" + this.context,
@@ -67,12 +68,16 @@ export class AuthenticationService {
     localStorage.setItem(this.localData.access_token, token);
   }
 
+  setCurrentUser(user) {
+    localStorage.setItem(this.localData.currentUser, btoa(JSON.stringify(user)));
+  }
+
   getCurrentUser() {
     try {
-      return JSON.parse(localStorage.getItem(this.localData.access_token) || '{}')
+      return JSON.parse(atob(localStorage.getItem(this.localData.currentUser) || '{}'))
     } catch (error) {
       return '{}';
-     }
+    }
   }
 
   getToken() {
@@ -81,6 +86,13 @@ export class AuthenticationService {
 
   isAuthenticated(): boolean {
     return localStorage.getItem(this.localData.access_token) != null
+      ? true
+      : false;
+  }
+
+
+  isCurrentUser(): boolean {
+    return localStorage.getItem(this.localData.currentUser) != null
       ? true
       : false;
   }

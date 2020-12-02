@@ -1,5 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
 
+.table-data-general {
+
+    th {
+      font-weight: bold !important;
+      color: #1E6BB8 !important;
+    }
+  
+    .table-striped>tbody>tr:nth-child(2n+1) {
+      background-color: rgba(3, 169, 244, 0.1) !important;
+    }
+  
+  
+  }
+  
+  .table-data-general-tasks {
+    td {
+      min-width: 120px;
+    }
+  }
+
 @media (min-width: 768px){
     .navbar-expand-md .navbar-nav .dropdown-menu {
         left: -203px !important;

@@ -65,7 +65,10 @@ export class LoginComponent {
           }else
           {
             this.generalFunctionsService.notifications('Felicidades, disfruta del DEMO de tareas', 'success');
-            this.authenticationService.saveToken(resp.token)
+            this.authenticationService.saveToken(resp.token);
+            this.authenticationService.setCurrentUser(resp.user);
+            this.router.navigate(['/dashboard']);
+
           }
           this.loading = false;
         },
