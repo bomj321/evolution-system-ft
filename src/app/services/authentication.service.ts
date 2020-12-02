@@ -69,8 +69,10 @@ export class AuthenticationService {
 
   getCurrentUser() {
     try {
-      return JSON.parse(decodeURIComponent(escape(atob(localStorage.getItem(this.localData.access_token)))))
-    } catch (error) { }
+      return JSON.parse(localStorage.getItem(this.localData.access_token) || '{}')
+    } catch (error) {
+      return '{}';
+     }
   }
 
   getToken() {
