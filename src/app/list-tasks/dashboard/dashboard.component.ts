@@ -6,10 +6,10 @@ declare var require: any;
 const data: any = require('./data.json');
 
 @Component({
-  templateUrl: './dashboard1.component.html',
-  styleUrls: ['./dashboard1.component.css']
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.css']
 })
-export class Dashboard1Component implements AfterViewInit {
+export class DashboardComponent implements AfterViewInit {
   subtitle: string;
   constructor() {
     this.subtitle = 'This is some text within a card block.';

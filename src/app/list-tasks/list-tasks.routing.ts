@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 
-export const DashboardRoutes: Routes = [
+export const ListRoutes: Routes = [
   {
     path: '',
     children: [
@@ -10,13 +10,13 @@ export const DashboardRoutes: Routes = [
         path: '',
         component: DashboardComponent,
         data: {
-          title: 'Tablero principal',
+          title: 'Listado de tareas',
           urls: [
-            { title: 'Tablero principal', url: '/dashboard' }
+            { title: 'Listado de tareas', url: '/lists-tasks' },
           ]
         }
       }
-
+  
     ]
   }
 ];

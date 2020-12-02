@@ -14,7 +14,7 @@ export const AppRoutes: Routes = [
   {
     path: 'lists-tasks',
     component: FullComponent,
-    loadChildren: () => import('./dashboards/dashboard.module').then(m => m.DashboardModule)
+    loadChildren: () => import('./list-tasks/list-tasks.module').then(m => m.ListTasksModule)
   },
 
   {
