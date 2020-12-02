@@ -1,12 +1,16 @@
 import { Component } from '@angular/core';
-
 import { GeneralFunctionsService } from '../../services/general-functions.service'
+import { AuthenticationService } from "../../services/authentication.service";
+import { Router } from "@angular/router";
 
 declare var jQuery: any;
 declare var $: any;
 @Component({
   selector: 'app-signup',
-  templateUrl: './signup.component.html'
+  templateUrl: './signup.component.html',
+  providers: [
+    AuthenticationService
+  ]
 })
 export class SignupComponent {
 
@@ -16,8 +20,10 @@ export class SignupComponent {
   public email: any;
   public password: any;
   public passwordConfirm: any;
+  public termConditions: boolean = false;
+  public loading: boolean = false;
 
-  constructor(public generalFunctionsService: GeneralFunctionsService) { }
+  constructor(private router: Router, public generalFunctionsService: GeneralFunctionsService, private authenticationService: AuthenticationService,) { }
 
   public saveUser() {
 
@@ -25,6 +31,8 @@ export class SignupComponent {
     $("#email").removeClass("is-invalid");
     $("#password").removeClass("is-invalid");
     $("#passwordConfirm").removeClass("is-invalid");
+    $("#termConditions").removeClass("is-invalid");
+
 
     if (this.fullName == null || this.fullName == '') {
       this.generalFunctionsService.notifications('Debe ingresar un nombre', 'error');
@@ -47,7 +55,7 @@ export class SignupComponent {
       this.generalFunctionsService.notifications('Debe ingresar un correo válido', 'danger');
       let element = document.getElementById("email");
       $("#email").addClass("status-danger");
-      element.focus();
+      if (element) { element.focus(); }
       return;
     }
 
@@ -68,6 +76,43 @@ export class SignupComponent {
       if (element) { element.focus(); }
       return;
     }
+    if (this.termConditions == false) {
+      this.generalFunctionsService.notifications('Debes aceptar los terminos y condiciones', 'error');
+      let element = document.getElementById("termConditions");
+      $("#termConditions").addClass("is-invalid");
+      if (element) { element.focus(); }
+      return;
+    }
+
+
+
+    let objectRequest =
+    {
+      "fullName": this.fullName,
+      "email": this.email,
+      "password": this.password,
+
+    }
+
+    this.loading = true;
+    this.authenticationService.register(objectRequest)
+      .subscribe(
+        (resp: any) => {
+
+          if (resp.message && resp.message == 'USER_EXIST') {
+            this.generalFunctionsService.notifications('Este usuario ya existe, por favor contacta con el administrador', 'warning');
+          } else {
+            this.generalFunctionsService.notifications('Felicidades tus datos han sido registrados, ahora logueate', 'success');
+            this.router.navigate(["/"]);
+          }
+          this.loading = false;
+
+        },
+        error => {
+          this.generalFunctionsService.notifications('Ha ocurrido un error al registrarte, por favor contacta con el administrador', 'error');
+          this.loading = false;
+        }
+      );
 
 
   }
