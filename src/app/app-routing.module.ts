@@ -6,14 +6,26 @@ import { BlankComponent } from './layouts/blank/blank.component';
 export const AppRoutes: Routes = [
 
   {
+    path: 'dashboard',
+    component: FullComponent,
+    loadChildren: () => import('./dashboards/dashboard.module').then(m => m.DashboardModule)
+  },
+
+  {
+    path: 'lists-tasks',
+    component: FullComponent,
+    loadChildren: () => import('./dashboards/dashboard.module').then(m => m.DashboardModule)
+  },
+
+  {
     path: "",
     component: BlankComponent,
     loadChildren: () => import('./authentication/authentication.module').then(m => m.AuthenticationModule)
-  }, 
+  },
 
   {
     path: '**',
     redirectTo: '/'
   }
- 
+
 ];

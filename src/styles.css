@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+
+@media (min-width: 768px){
+    .navbar-expand-md .navbar-nav .dropdown-menu {
+        left: -203px !important;
+    }
+}
+
+@media (min-width: 769px)
+{
+    .horizontal-nav .sidebar-nav #sidebarnav > li:last-child > ul {
+        right:  auto !important;
+        left: auto !important;
+    }
+    
+}
+
