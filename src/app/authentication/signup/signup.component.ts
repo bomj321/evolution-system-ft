@@ -23,7 +23,7 @@ export class SignupComponent {
   public termConditions: boolean = false;
   public loading: boolean = false;
 
-  constructor(private router: Router, public generalFunctionsService: GeneralFunctionsService, private authenticationService: AuthenticationService,) { }
+  constructor(private router: Router, public generalFunctionsService: GeneralFunctionsService, private authenticationService: AuthenticationService) { }
 
   public saveUser() {
 
@@ -101,7 +101,10 @@ export class SignupComponent {
 
           if (resp.message && resp.message == 'USER_EXIST') {
             this.generalFunctionsService.notifications('Este usuario ya existe, por favor contacta con el administrador', 'warning');
-          } else {
+          } else if(resp.message && resp.message == 'DATA_INCOMPLETE') {
+            this.generalFunctionsService.notifications('Disculpa pero tienes datos faltantes', 'error');
+          }else
+          {
             this.generalFunctionsService.notifications('Felicidades tus datos han sido registrados, ahora logueate', 'success');
             this.router.navigate(["/"]);
           }
