@@ -12,9 +12,6 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgxLoadingModule } from 'ngx-loading';
 import { TasksModalComponent } from './tasks-modal/tasks-modal.component';
 
-
-
-
 @NgModule({
   declarations: [
     ModalComponent,   
@@ -29,7 +26,9 @@ import { TasksModalComponent } from './tasks-modal/tasks-modal.component';
     NgbModule,
     NgSelectModule,   
     NgxLoadingModule.forRoot({}),   
-    ToastrModule.forRoot() // ToastrModule added
+    ToastrModule.forRoot({
+      positionClass :'toast-top-right'
+    })
   ],
   exports:
   [
@@ -39,6 +38,6 @@ import { TasksModalComponent } from './tasks-modal/tasks-modal.component';
   [
     ModalComponent,
     TasksModalComponent
-  ],
+  ]
 })
 export class ModalsModule { }

@@ -57,7 +57,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   imports: [
     HttpClientModule,
     ModalsModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      positionClass :'toast-top-right'
+    }),
     CommonModule,
     BrowserModule,
     FormsModule,

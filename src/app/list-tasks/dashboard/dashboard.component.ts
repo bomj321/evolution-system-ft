@@ -18,7 +18,8 @@ const data: any = require('./data.json');
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
   providers: [
-    TaskService
+    TaskService,
+    AuthenticationService
   ]
 })
 export class DashboardComponent implements OnInit {

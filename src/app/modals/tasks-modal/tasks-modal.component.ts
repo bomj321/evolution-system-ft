@@ -80,7 +80,8 @@ export class CustomDateParserFormatter extends NgbDateParserFormatter {
   templateUrl: './tasks-modal.component.html',
   styleUrls: ['./tasks-modal.component.scss'],
   providers: [
-    TaskService
+    TaskService,
+    NgbActiveModal
   ]
 })
 export class TasksModalComponent implements OnInit {

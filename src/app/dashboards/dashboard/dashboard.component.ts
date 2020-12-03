@@ -7,7 +7,8 @@ import { differenceInDays } from 'date-fns';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
   providers: [
-    TaskService
+    TaskService,
+    AuthenticationService
   ]
 })
 export class DashboardComponent implements OnInit {
