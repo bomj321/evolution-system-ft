@@ -6,3 +6,5 @@
 [1202/230548.926:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\jmob6\AppData\Local\Temp\karma-16314771\Crashpad\attachments\505a550d-31c0-413c-98c0-a37f4ae540a4: The system cannot find the path specified. (0x3)
 [1202/231139.202:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\jmob6\AppData\Local\Temp\karma-98091332\Crashpad\attachments\829fecfa-974f-462c-9cdb-fae9fdb84959: The system cannot find the path specified. (0x3)
 [1202/231344.654:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\jmob6\AppData\Local\Temp\karma-78518622\Crashpad\attachments\e8013e28-aa1e-4a67-b9b8-328fa5dd433b: The system cannot find the path specified. (0x3)
+[1202/232336.349:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\jmob6\AppData\Local\Temp\karma-99580697\Crashpad\attachments\48991373-f3ad-40d4-be35-3795f55fc82e: The system cannot find the path specified. (0x3)
+[1202/233800.536:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\jmob6\AppData\Local\Temp\karma-62270658\Crashpad\attachments\b21375a0-1e3e-447e-8b53-e3c2e0b2864e: The system cannot find the path specified. (0x3)

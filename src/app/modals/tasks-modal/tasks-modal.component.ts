@@ -80,8 +80,7 @@ export class CustomDateParserFormatter extends NgbDateParserFormatter {
   templateUrl: './tasks-modal.component.html',
   styleUrls: ['./tasks-modal.component.scss'],
   providers: [
-    TaskService,
-    NgbActiveModal
+    TaskService
   ]
 })
 export class TasksModalComponent implements OnInit {
@@ -235,7 +234,6 @@ export class TasksModalComponent implements OnInit {
   eventToSaveEdit() {
     this.objectRequest =
     {
-
       "title": this.title.toString(),
       "content": this.content,
       "priority": this.priority,
@@ -259,8 +257,8 @@ export class TasksModalComponent implements OnInit {
           this.generalFunctionsService.notifications('Disculpa pero tienes datos faltantes', 'error');
         } else {
           this.generalFunctionsService.notifications('Tarea añadida con éxito', 'success');
-          this.onSaveTask.emit('SAVED');
           this.close();
+          this.onSaveTask.emit('SAVED');
         }
         this.loading = false;
       },
@@ -281,8 +279,8 @@ export class TasksModalComponent implements OnInit {
         this.generalFunctionsService.notifications('Disculpa pero tienes datos faltantes', 'error');
       } else {
         this.generalFunctionsService.notifications('Tarea editada con éxito', 'success');
-        this.onSaveTask.emit('UPDATED');
         this.close();
+        this.onSaveTask.emit('UPDATED');
       }
       this.loading = false;
     }, error => {
@@ -322,9 +320,6 @@ export class TasksModalComponent implements OnInit {
       "month": (formatStartDate.getMonth() + 1),
       "day": parseInt(this.generalFunctionsService.addZero(formatStartDate.getDate()))
     };
-
-
-    console.log(this.exp);
 
   }
 

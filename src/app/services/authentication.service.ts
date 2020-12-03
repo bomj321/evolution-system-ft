@@ -129,6 +129,7 @@ export class AuthenticationService {
 
   logOut() {
     localStorage.removeItem(this.localData.access_token);
+    localStorage.removeItem(this.localData.currentUser);    
     this.router.navigate(["/"]);
   }
 

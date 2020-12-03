@@ -5,7 +5,7 @@
 
             <ng-container>
                 <li class="pointer" *ngFor="let task of tasks">
-                    {{ task.title }}
+                    {{ task.title && task.title.length > 30 ? task.title.substr(0,30) + '...' : task.title }}
                     <span class="text-muted">{{ formatTime(task) }}</span>
                 </li>
             </ng-container>

@@ -23,7 +23,7 @@ import { TasksModalComponent } from './tasks-modal/tasks-modal.component';
     BrowserAnimationsModule,  
     FormsModule,
     ReactiveFormsModule,
-    NgbModule,
+    NgbModule.forRoot(),
     NgSelectModule,   
     NgxLoadingModule.forRoot({}),   
     ToastrModule.forRoot({

@@ -51,10 +51,11 @@ export class SignupComponent {
       return;
     }
 
+
     if (this.generalFunctionsService.validateEmail(this.email) == false) {
-      this.generalFunctionsService.notifications('Debe ingresar un correo válido', 'danger');
+      this.generalFunctionsService.notifications('Debe ingresar un correo válido', 'error');
       let element = document.getElementById("email");
-      $("#email").addClass("status-danger");
+      $("#email").addClass("is-invalid");
       if (element) { element.focus(); }
       return;
     }
