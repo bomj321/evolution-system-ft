@@ -33,6 +33,10 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './_interceptors/auth.interceptor';
 import { AuthenticationService } from "./services/authentication.service";
 
+import { ModalsModule } from "./modals/modals.module";
+import { NgSelectModule } from '@ng-select/ng-select';
+
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
   wheelSpeed: 2,
@@ -52,11 +56,13 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   ],
   imports: [
     HttpClientModule,
+    ModalsModule,
     ToastrModule.forRoot(),
     CommonModule,
     BrowserModule,
     FormsModule,
     NgbModule,
+    NgSelectModule,
     BrowserAnimationsModule,
     PerfectScrollbarModule,
     RouterModule.forRoot(AppRoutes)

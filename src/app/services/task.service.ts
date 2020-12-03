@@ -56,7 +56,7 @@ export class TaskService {
     return this.http.delete(this.services.task + '/' + id);
   }
 
-  editTask(data, id) {
+  updateTask(data, id) {
     return this.http.put(this.services.task + '/' + id, data);
   }
 

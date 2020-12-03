@@ -3,6 +3,11 @@ import { AuthenticationService } from "../../services/authentication.service";
 import { GeneralFunctionsService } from '../../services/general-functions.service'
 import { TaskService } from "../../services/task.service";
 import swal from 'sweetalert2';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+
+/******MODALS*** */
+import { TasksModalComponent } from '../..//modals/tasks-modal/tasks-modal.component';
 
 
 declare var require: any;
@@ -30,6 +35,7 @@ export class DashboardComponent implements OnInit {
   constructor(
     private authenticationService: AuthenticationService,
     public generalFunctionsService: GeneralFunctionsService,
+    private modal: NgbModal,
     private taskService: TaskService) { }
 
   ngOnInit() {
@@ -39,6 +45,16 @@ export class DashboardComponent implements OnInit {
   }
 
 /********************CRUD****************************** */
+
+openModalTask(task = null) {
+  const modal = this.modal.open(TasksModalComponent);
+  modal.componentInstance.taskInformation = task;
+  modal.componentInstance.onSaveTask.subscribe(($e) => {
+    this.getTasks(1);
+  })
+}
+
+
 
   getTasks(page = 1, searchParams = false) {
     this.loading = true;
@@ -71,10 +87,7 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-
-
-  deleteTask(id) {
-   
+  deleteTask(id) {   
     swal({
       title: 'Estás seguro?',
       text: "¿Estás seguro de eliminar?",
