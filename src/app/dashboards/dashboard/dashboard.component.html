@@ -4,7 +4,7 @@
 <div class="row">
   <div class="col-12">
     <!-- You can find this in the dashboard-component -->
-    <app-project-counter></app-project-counter>
+    <app-project-counter [tasks]="tasks" *ngIf="tasks"></app-project-counter>
   </div>
 </div>
 <!-- ============================================================== -->
@@ -18,7 +18,7 @@
 <div class="row">
   <div class="col-lg-12">
     <!-- You can find this in the dashboard-component -->
-    <app-feeds></app-feeds>
+    <app-feeds [tasks]="tasks" *ngIf="tasks"></app-feeds>
   </div>
  
 </div>

@@ -1,14 +1,21 @@
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title">
-            <span class="lstick"></span>Feeds</h4>
+        <h4 class="card-title"><span class="lstick"></span>Tareas por vencer</h4>
         <ul class="feeds">
-            <li *ngFor="let feed of feeds">
-                <div class="{{feed.bg}}">
-                    <i class="{{feed.icon}}"></i>
-                </div> {{feed.msg}}
-                <span class="text-muted">{{feed.time}}</span>
-            </li>
+
+            <ng-container *ngIf="tasks && tasks?.length > 0">
+                <li *ngFor="let task of tasks">
+                    {{ task.content }}
+                    <span class="text-muted">1 día</span>
+                </li>
+            </ng-container>
+
+            <ng-container *ngIf="(tasks && tasks?.length == 0) || !tasks">
+                <li>
+                   No hay tareas regístradas
+                </li>
+            </ng-container>
+
         </ul>
     </div>
 </div>

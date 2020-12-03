@@ -18,7 +18,8 @@ export class TaskService {
 
 
   private services = {
-    task: this.server + "/task"
+    task: this.server + "/task",
+    tasks: this.server + "/tasks"
   };
 
 
@@ -39,13 +40,16 @@ export class TaskService {
 
   getTasks(idUser, page, searchParams) {
 
-    if(searchParams)
-    {
+    if (searchParams) {
       return this.http.get(this.services.task + '/' + idUser + '/' + page + '/' + searchParams);
-    }else
-    {
+    } else {
       return this.http.get(this.services.task + '/' + idUser + '/' + page);
     }
+  }
+
+
+  getAllTasks(idUser) {
+    return this.http.get(this.services.tasks + '/' + idUser);
   }
 
   getTask(id) {
