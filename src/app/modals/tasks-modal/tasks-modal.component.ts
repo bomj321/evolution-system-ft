@@ -173,6 +173,7 @@ export class TasksModalComponent implements OnInit {
 
   saveTask() {
 
+
     $("#title").removeClass("is-invalid");
     $("#exp").removeClass("is-invalid");
     $("#priority").removeClass("is-invalid");
@@ -223,17 +224,14 @@ export class TasksModalComponent implements OnInit {
       return;
     }
 
-
-
+    this.loading = true;
     this.eventToSaveEdit();
-
 
   }
 
 
 
   eventToSaveEdit() {
-
     this.objectRequest =
     {
 
@@ -244,8 +242,7 @@ export class TasksModalComponent implements OnInit {
     };
 
     if (this.taskInformation) {
-      this.editContentService(this.objectRequest);
-
+      this.editContentService(this.objectRequest, this.taskInformation);
     } else {
       this.saveContentService(this.objectRequest);
     }
@@ -255,7 +252,6 @@ export class TasksModalComponent implements OnInit {
   saveContentService(objectRequest) {
     this.taskService.saveTask(objectRequest).subscribe(
       data => {
-
         if (data && data['message'] == 'DATA_INCOMPLETE') {
           this.generalFunctionsService.notifications('Disculpa pero tienes datos faltantes', 'error');
         } else if (data && data['message'] == 'NOT_VALID_VALIDATION') {
@@ -265,16 +261,18 @@ export class TasksModalComponent implements OnInit {
           this.onSaveTask.emit('SAVED');
           this.close();
         }
-
+        this.loading = false;
       },
       error => {
         this.generalFunctionsService.notifications('Ha ocurrido un error al guardar la tarea, por favor contacte con el administrador', 'error');
+        this.loading = false;
+
       }
     );
   }
 
-  editContentService(objectRequest) {
-    this.taskService.updateTask(objectRequest, this.taskInformation._id).subscribe(data => {
+  editContentService(objectRequest, taskInformation) {
+    this.taskService.updateTask(objectRequest, taskInformation._id).subscribe(data => {
 
       if (data && data['message'] == 'DATA_INCOMPLETE') {
         this.generalFunctionsService.notifications('Disculpa pero tienes datos faltantes', 'error');
@@ -285,10 +283,11 @@ export class TasksModalComponent implements OnInit {
         this.onSaveTask.emit('UPDATED');
         this.close();
       }
-
+      this.loading = false;
     }, error => {
-      console.log(error);
       this.generalFunctionsService.notifications('Ha ocurrido un error al editar la tarea, por favor contacte con el administrador', 'error');
+      this.loading = false;
+
     })
 
   }

@@ -29,8 +29,8 @@ export class DashboardComponent implements OnInit {
   public loading: boolean = false;
   public pageSize: number = 10;
   public page: number = 1;
-  public currentUser:any;
-  public tasks:any;
+  public currentUser: any;
+  public tasks: any;
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -44,23 +44,21 @@ export class DashboardComponent implements OnInit {
     this.getTasks();
   }
 
-/********************CRUD****************************** */
+  /********************CRUD****************************** */
 
-openModalTask(task = null) {
-  const modal = this.modal.open(TasksModalComponent);
-  modal.componentInstance.taskInformation = task;
-  modal.componentInstance.onSaveTask.subscribe(($e) => {
-    this.getTasks(1);
-  })
-}
-
-
+  openModalTask(task = null) {
+    const modal = this.modal.open(TasksModalComponent);
+    modal.componentInstance.taskInformation = task;
+    modal.componentInstance.onSaveTask.subscribe(($e) => {
+      this.getTasks(1);
+    })
+  }
 
   getTasks(page = 1, searchParams = false) {
     this.loading = true;
-    this.page = page  
+    this.page = page
 
-    this.taskService.getTasks(this.currentUser._id,page, searchParams).subscribe((tasks: any) => {
+    this.taskService.getTasks(this.currentUser._id, page, searchParams).subscribe((tasks: any) => {
       this.tasks = tasks;
       this.loading = false;
     },
@@ -71,23 +69,23 @@ openModalTask(task = null) {
   }
 
 
-  deletePromoFunction(id) {
-    
+  deleteTasksFunction(id) {
+    this.loading = true;
     this.taskService.deleteTask(id).subscribe(
       data => {
+        this.loading = false;
+        this.generalFunctionsService.notifications('Tarea eliminada con éxito', 'success');
         this.getTasks(this.page);
-        this.generalFunctionsService.notifications('Promoción eliminada con éxito', 'success');
       },
       error => {
-
-          this.generalFunctionsService.notifications('Ha ocurrido un error al eliminar la tarea, por favor contacte con el administrador', 'error');
-        
+        this.loading = false;
+        this.generalFunctionsService.notifications('Ha ocurrido un error al eliminar la tarea, por favor contacte con el administrador', 'error');
 
       }
     );
   }
 
-  deleteTask(id) {   
+  deleteTask(id) {
     swal({
       title: 'Estás seguro?',
       text: "¿Estás seguro de eliminar?",
@@ -99,7 +97,7 @@ openModalTask(task = null) {
     }).then((result) => {
       if (result.value) {
 
-        this.deletePromoFunction(id);
+        this.deleteTasksFunction(id);
 
       } else if (
         result.dismiss === swal.DismissReason.cancel
