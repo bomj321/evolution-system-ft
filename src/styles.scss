@@ -20,6 +20,11 @@
     }
   }
 
+.pointer
+{
+  cursor: pointer !important;
+}
+
 @media (min-width: 768px){
     .navbar-expand-md .navbar-nav .dropdown-menu {
         left: -203px !important;

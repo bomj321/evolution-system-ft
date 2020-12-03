@@ -1,21 +1,22 @@
-<div class="card">
+<div class="card" *ngIf="tasks && tasks?.length > 0">
     <div class="card-body">
         <h4 class="card-title"><span class="lstick"></span>Tareas por vencer</h4>
         <ul class="feeds">
 
-            <ng-container *ngIf="tasks && tasks?.length > 0">
-                <li *ngFor="let task of tasks">
-                    {{ task.content }}
-                    <span class="text-muted">1 día</span>
-                </li>
-            </ng-container>
-
-            <ng-container *ngIf="(tasks && tasks?.length == 0) || !tasks">
-                <li>
-                   No hay tareas regístradas
+            <ng-container>
+                <li class="pointer" *ngFor="let task of tasks">
+                    {{ task.title }}
+                    <span class="text-muted">{{ formatTime(task) }}</span>
                 </li>
             </ng-container>
 
         </ul>
+    </div>
+
+</div>
+
+<div class="row" *ngIf="!tasks || tasks?.length == 0">
+    <div class="col-12">
+        <h3 class="text-center mt-5 font-weight-bold">Sin tareas regístradas</h3>
     </div>
 </div>

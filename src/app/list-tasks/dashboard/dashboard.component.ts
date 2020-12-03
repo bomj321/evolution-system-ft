@@ -60,6 +60,7 @@ export class DashboardComponent implements OnInit {
 
     this.taskService.getTasks(this.currentUser._id, page, searchParams).subscribe((tasks: any) => {
       this.tasks = tasks;
+      console.log(tasks);
       this.loading = false;
     },
       error => {

@@ -6,9 +6,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ListRoutes } from './list-tasks.routing';
 
-import { ProjectCounterComponent } from './dashboard-components/project-counter/project-counter.component';
-import { FeedsComponent } from './dashboard-components/feeds/feeds.component';
-
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '../_interceptors/auth.interceptor';
 import { UrlAuthGuard } from "../_guards/url-auth.guard";
@@ -22,10 +19,8 @@ import { AuthenticationService } from "../services/authentication.service";
     RouterModule.forChild(ListRoutes)
   ],
   declarations: [
-    DashboardComponent,
-    ProjectCounterComponent,
-    FeedsComponent
-  ],
+    DashboardComponent
+    ],
   providers:
     [
       UrlAuthGuard,
