@@ -13,6 +13,15 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "rxjs/add/operator/filter",
+              "rxjs/add/operator/map",
+              "rxjs/add/operator/mergeMap",
+              "rxjs/add/operator/catch",
+              "rxjs/add/operator/throttleTime",
+              "rxjs/add/operator/distinctUntilChanged",
+              "rxjs/Subject"
+            ],
             "outputPath": "dist/front-end-evolution",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -123,6 +132,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "front-end-evolution"
 }

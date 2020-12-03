@@ -12,11 +12,11 @@ import { differenceInDays } from 'date-fns';
   ]
 })
 export class DashboardComponent implements OnInit {
- 
+
   public currentUser: any;
   public loading: boolean = false;
   public tasks: any;
-  public tasksFilterd:any = [];
+  public tasksFilterd: any = [];
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -34,21 +34,15 @@ export class DashboardComponent implements OnInit {
     this.taskService.getAllTasks(this.currentUser._id).subscribe((tasks: any) => {
       this.tasks = tasks.topics;
 
-      this.tasksFilterd = this.tasks.filter(task => differenceInDays(new Date(task.exp + 'T00:00'), new Date()) <= 1 && differenceInDays(new Date(task.exp + 'T00:00'), new Date()) >= 0  );
+      this.tasksFilterd = this.tasks.filter(task => differenceInDays(new Date(task.exp + 'T00:00'), new Date()) <= 1 && differenceInDays(new Date(task.exp + 'T00:00'), new Date()) >= 0);
       this.loading = false;
     },
       error => {
 
-        if(error.error.message == 'NOT_TOPICS')
-        {
-          this.generalFunctionsService.notifications('No tienes tareas registradas', 'error');
-          this.tasks = [];
-
-        }else
-        {
+        if (error.error.message != 'NOT_TOPICS') {
           this.generalFunctionsService.notifications('Ha ocurrido un error al obtener las tareas, por favor contacte con el administrador', 'error');
-
         }
+
         this.loading = false;
       })
   }
